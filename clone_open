@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+# clone.rb
+
+require 'uri'
+
+def url
+  ARGV[0]
+end
+
+def target_dir
+  "~/tmp"
+end
+
+def dir_name(url)
+  target_dir + URI.split( url ).compact.last
+end
+
+def code(url)
+  "git clone #{url} #{dir_name(url)}"
+end
+
+exit if ARGV[0] == nil
+
+puts code(url)
+
+system( code(url) )
+system( "atom #{dir_name(url)}")
